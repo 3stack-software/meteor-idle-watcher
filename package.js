@@ -1,6 +1,6 @@
 Package.describe({
   name: '3stack:idle-watcher',
-  version: '0.1.0',
+  version: '0.1.1',
   summary: 'Watches DOM events for activity, and automatically marks users as idle / inactive after a timeout.',
   git: 'https://github.com/3stack-software/meteor-idle-watcher',
   documentation: 'README.md'
@@ -14,7 +14,8 @@ Package.onUse(function(api){
 
   api.use([
     'tracker',
-    'underscore'
+    'underscore',
+    'jquery'
   ], 'client');
 
   api.addFiles([
