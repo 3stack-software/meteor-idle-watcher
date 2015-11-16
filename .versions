@@ -1,5 +1,5 @@
-3stack:idle-watcher@0.1.1
-jquery@1.11.3
-meteor@1.1.4
-tracker@1.0.5
-underscore@1.0.2
+3stack:idle-watcher@0.2.0
+jquery@1.11.4
+meteor@1.1.10
+tracker@1.0.9
+underscore@1.0.4

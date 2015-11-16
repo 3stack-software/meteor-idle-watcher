@@ -1,5 +1,3 @@
-"use strict";
-
 ClientIdleWatcher.STATUS_ACTIVE = 0;
 
 ClientIdleWatcher.STATUS_IDLE = 1;
@@ -11,6 +9,8 @@ ClientIdleWatcher.EVENTS = "mousemove keydown wheel mousedown touchstart ";
 ClientIdleWatcher.EVENT_NAMESPACE = 'idleTimer';
 
 ClientIdleWatcher.EVENTS_NS = ClientIdleWatcher.EVENTS.split(' ').join("." + ClientIdleWatcher.EVENT_NAMESPACE + " ");
+
+ClientIdleWatcher.EVENT_VISIBILTY = "visibilitychange." + ClientIdleWatcher.EVENT_NAMESPACE;
 
 ClientIdleWatcher.ONE_EVENT_NAMESPACE = 'idleTimerOne';
 
@@ -63,11 +63,16 @@ _.extend(ClientIdleWatcher.prototype, {
   },
 
   bindEvents: function () {
-    $(document).on(ClientIdleWatcher.EVENTS_NS, (function (_this) {
-      return function () {
-        _this.detectorCount = 0;
-      };
-    })(this));
+    var self = this;
+    $(document).on(ClientIdleWatcher.EVENTS_NS, function () {
+        self.detectorCount = 0;
+    });
+    $(document).on(ClientIdleWatcher.EVENT_VISIBILTY, function(){
+      // When the document is hidden, push the user to `idle` state.
+      if (document.hidden && self.detectorCount < self.idleThreshold){
+        self.detectorCount = self.idleThreshold;
+      }
+    })
   },
 
   unbindEvents: function () {
